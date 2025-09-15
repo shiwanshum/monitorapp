@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database Monitoring Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script> -->
+    <script src="../static/js/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="../static/css/dashboard.css" />
+        <style>
+      /* Styling for the node status badge */
+      .node-status-badge {
+        padding: 4px 10px;
+        border-radius: 20px; /* This makes it rounded */
+        font-weight: bold;
+        font-size: 0.8em;
+        color: white;
+        min-width: 60px; /* Ensures all buttons have a consistent width */
+        text-align: center;
+        margin-left: auto; /* Pushes the element to the far right */
+      }
+
+      /* Specific colors for 'up' and 'down' statuses */
+      .node-status-badge.status-up {
+        background-color: #4caf50; /* Green color for UP */
+      }
+
+      .node-status-badge.status-down {
+        background-color: #f44336; /* Red color for DOWN */
+      }
+
+      /* Ensure the parent container uses flexbox to align items correctly */
+      .node-status-item {
+        display: flex;
+        justify-content: space-between; /* Aligns content to the left and badge to the right */
+        align-items: center;
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 5px;
+      }
+
+      .node-name {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div>
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+          <svg
+            width="150px"
+            height="80px"
+            viewBox="-10.76 0 103.5 103.5"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              id="Group_1"
+              data-name="Group 1"
+              transform="translate(-284.712 -235.2)"
+            >
+              <path
+                id="Path_1"
+                data-name="Path 1"
+                d="M325.8,239.2c26,0,37,9.3,37,9.3v73.4c0,1.9-11.9,12.7-37,12.7-22.9,0-37-10.3-37-12.7V248.5s6.9-9.3,37-9.3m0-4c-31.2,0-39.3,9.9-40.2,11a4.069,4.069,0,0,0-.8,2.4V322c0,4.8,8.6,9.2,12.3,10.9a70.668,70.668,0,0,0,28.7,5.8c14.1,0,23.9-3.3,29.6-6,2.7-1.3,11.3-5.8,11.3-10.6V248.7a3.749,3.749,0,0,0-1.4-3c-.5-.6-12.4-10.5-39.5-10.5Z"
+                fill="#2b4ea2"
+              />
+              <path
+                id="Path_2"
+                data-name="Path 2"
+                d="M363.5,272.3s-13.3,9.7-37.7,9.7c-24.5,0-38-9.7-38-9.7"
+                fill="none"
+                stroke="#2b4ea2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="4"
+              />
+              <path
+                id="Path_3"
+                data-name="Path 3"
+                d="M363.4,295.9s-13.2,9.7-37.7,9.7-38.2-9.7-38.2-9.7"
+                fill="none"
+                stroke="#2b4ea2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                stroke-width="4"
+              />
+              <path
+                id="Path_4"
+                data-name="Path 4"
+                d="M302.5,254.2a3.372,3.372,0,0,1,3.9,3.9,3.189,3.189,0,0,1-2.6,2.6,3.372,3.372,0,0,1-3.9-3.9A3.606,3.606,0,0,1,302.5,254.2Z"
+                fill="#2b4ea2"
+                stroke="#2b4ea2"
+                stroke-miterlimit="10"
+                stroke-width="2"
+              />
+              <path
+                id="Path_5"
+                data-name="Path 5"
+                d="M302.5,287.1a3.372,3.372,0,0,1,3.9,3.9,3.189,3.189,0,0,1-2.6,2.6,3.372,3.372,0,0,1-3.9-3.9A3.313,3.313,0,0,1,302.5,287.1Z"
+                fill="#2b4ea2"
+                stroke="#2b4ea2"
+                stroke-miterlimit="10"
+                stroke-width="2"
+              />
+              <path
+                id="Path_6"
+                data-name="Path 6"
+                d="M302.5,313.9a3.372,3.372,0,0,1,3.9,3.9,3.189,3.189,0,0,1-2.6,2.6,3.372,3.372,0,0,1-3.9-3.9A3.452,3.452,0,0,1,302.5,313.9Z"
+                fill="#2b4ea2"
+                stroke="#2b4ea2"
+                stroke-miterlimit="10"
+                stroke-width="2"
+              />
+              <path
+                id="Path_7"
+                data-name="Path 7"
+                d="M315.2,261.3c3.2.3,6.6.4,10.1.4,21,0,38.1-5.3,38.1-11.8s-17.1-11.8-38.1-11.8c-10.1,0-20.5,1.1-27.5,3.1"
+                fill="none"
+                stroke="#2b4ea2"
+                stroke-linecap="round"
+                stroke-miterlimit="10"
+                stroke-width="4"
+              />
+            </g>
+          </svg>
+        <h1>Database</h1> 
+          <h1>Monitoring Dashboard</h1>
+        </div>
+        <p>
+          Real-time monitoring and analytics for PostgreSQL and MySQL clusters
+        </p>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="timeRange">Historical Data Range:</label>
+          <select id="timeRange">
+            <option value="10m">Last 10 Minutes</option>
+            <option value="30m">Last 30 Minutes</option>
+            <option value="1h">Last 1 Hour</option>
+            <option value="3h">Last 3 Hours</option>
+            <option value="6h">Last 6 Hours</option>
+            <option value="12h">Last 12 Hours</option>
+            <option value="18h">Last 18 Hours</option>
+            <option value="24h" selected>Last 24 Hours</option>
+            <option value="72h">Last 3 Days</option>
+            <option value="168h">Last 7 Days</option>
+            <option value="1M">Last 1 Month</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <button onclick="refreshDashboard()">Refresh Data</button>
+          <button onclick="checkRealTimeStatus()">Check Live Status</button>
+          <button onclick="toggleAutoRefresh()">
+            Auto Refresh: <span id="autoRefreshStatus">OFF</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Real-time Cluster Health -->
+        <div class="card">
+          <h2>Live Cluster Health</h2>
+          <div class="loading" id="realTimeStatusLoading">
+            <div class="spinner"></div>
+            Checking live status...
+          </div>
+          <div id="realTimeStatus" style="display: none">
+            <div id="liveClusterStatus">
+              <!-- Real-time cluster status will be populated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Historical Cluster Status -->
+        <div class="card">
+          <h2>Historical Status Summary</h2>
+          <div class="loading" id="clusterStatusLoading">
+            <div class="spinner"></div>
+            Loading historical data...
+          </div>
+          <div id="clusterStatus" style="display: none">
+            <div class="status-grid" id="clusterStatusGrid">
+              <!-- Historical cluster status items will be populated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Nodes Summary -->
+        <div class="card">
+          <h2>Node Uptime Statistics</h2>
+          <div class="loading" id="nodeStatusLoading">
+            <div class="spinner"></div>
+            Loading node statistics...
+          </div>
+          <div id="nodeStatus" style="display: none">
+            <div id="nodeStatusList">
+              <!-- Node status items will be populated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Cluster Health Trend -->
+        <div class="card half-width">
+          <h2>Historical Health Trend</h2>
+          <div class="chart-container">
+            <canvas id="clusterTrendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Replication Lag -->
+        <div class="card">
+          <h2>Replication Lag</h2>
+          <div class="chart-container">
+            <canvas id="replicationLagChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Connection Status Timeline -->
+        <div class="card wide-card">
+          <h2>Connection Status Timeline</h2>
+          <div class="chart-container large">
+            <canvas id="connectionTimelineChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Historical Events -->
+        <div class="card wide-card">
+          <h2>Historical Events</h2>
+          <div class="loading" id="eventsLoading">
+            <div class="spinner"></div>
+            Loading historical events...
+          </div>
+          <div id="historicalEvents" style="display: none">
+            <div class="events-list" id="eventsList">
+              <!-- Events will be populated here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refresh-indicator" id="refreshIndicator">
+      Data refreshed successfully!
+    </div>
+  </body>
+  <!-- <script src="../static/js/dashboard.js"></script> -->
+  <script src="../static/js/dashboard_copy.js"></script>
+
+  </html>

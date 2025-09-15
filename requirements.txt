@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+psycopg2-binary
+mysql-connector-python
+python-dotenv
+jinja2
+sqlalchemy
+requests
+sqlite3
+pymysql
+apscheduler
