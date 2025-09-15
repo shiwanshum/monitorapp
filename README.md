@@ -1,6 +1,5 @@
 # monitorapp
 
-git push token:   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
 
 
 my system is ubuntu arm64 (aarch64)
