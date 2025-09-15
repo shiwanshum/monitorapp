@@ -1,7 +1,5 @@
 # monitorapp
 
-
-
 my system is ubuntu arm64 (aarch64)
 db  configuration setup in docker 
 
@@ -11,7 +9,6 @@ image: postgres:17
 main_metric.py is flask based code
 
 app.py is fastapi based code
-
 
  i have setup 3 node of both db in different docker vms, if you setup single node or double node of db cluster in docker make sure update the files as below :
  * db_config.py
